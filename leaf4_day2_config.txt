@@ -1,0 +1,67 @@
+configure 
+!
+vlan 112
+    name Host_Network_112
+!
+vlan 134
+    name Host_Network_134
+!
+vrf instance TENANT
+!
+ip routing vrf TENANT
+!
+interface Port-Channel5
+    description MLAG Downlink - s1-host2
+    switchport mode trunk
+    switchport trunk allow vlan 112,134
+    mlag 5
+!
+interface Ethernet4
+    description MLAG Downlink - s1-host2
+    channel-group 5 mode active
+!
+interface Loopback1
+    description VTEP
+    ip address 10.111.253.3/32
+!
+interface Vlan112
+    description Host Network 112
+    vrf TENANT
+    ip address virtual 10.111.112.1/24
+!
+interface Vlan134
+    description Host Network 134
+    vrf TENANT
+    ip address virtual 10.111.134.1/24
+!
+router bgp 65102
+    neighbor SPINE-EVPN peer group
+    neighbor SPINE-EVPN remote-as 65100
+    neighbor SPINE-EVPN update-source Loopback0
+    neighbor SPINE-EVPN ebgp-multihop 3
+    neighbor SPINE-EVPN send-community standard extended
+    neighbor 10.111.0.1 peer group SPINE-EVPN
+    neighbor 10.111.0.2 peer group SPINE-EVPN
+    !
+  vlan 112
+    rd auto
+    route-target both 112:112
+    redistribute learned
+    !
+  vlan 134
+    rd auto
+    route-target both 134:134
+    redistribute learned
+    !
+  address-family evpn
+    neighbor SPINE-EVPN activate
+!
+interface Vxlan1
+    vxlan source-interface Loopback1
+    vxlan virtual-router encapsulation mac-address mlag-system-id
+    vxlan vlan 112 vni 112
+    vxlan vlan 134 vni 134
+    vxlan vrf TENANT vni 5001
+!
+ip virtual-router mac-address 00:1C:73:00:00:01
+

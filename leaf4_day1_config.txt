@@ -1,0 +1,26 @@
+configure
+interface port-channel 5
+    description MLAG - HOST2
+    switchport access vlan 112
+    mlag 5
+!
+interface Ethernet4
+    description HOST2
+    channel-group 5 mode active
+    lacp timer fast
+!
+interface Loopback1
+    ip address 10.111.253.3/32
+!
+interface vxlan 1
+    vxlan source-interface loopback 1
+    vxlan vlan 112 vni 112
+    vxlan flood vtep 10.111.253.1
+!
+interface Vxlan1
+    vxlan source-interface Loopback1
+    vxlan udp-port 4789
+    vxlan vlan 112 vni 112
+    vxlan flood vtep 10.111.253.1
+end
+
