@@ -1,0 +1,49 @@
+----- VxLAN -----
+1.	show interface vxlan1
+        – Displays the operational status, IP address, and encapsulation details of the local VXLAN tunnel interface.
+2.	show vxlan vtep 
+        – Lists all remote VTEPs (peering switches) the device has discovered or is statically configured to use.
+3.	show vxlan flood vtep 
+        - Shows the static or learned VTEPs used for flooding unknown unicast, broadcast, or multicast traffic.
+4.	show vxlan vni 
+        – Displays VXLAN Network Identifiers (VNIs) and their mappings to VLANs or VRFs.
+5.	show vxlan address table 
+        – Shows learned MAC addresses across VNIs, including which VTEP or local port they were learned from.
+6.	show vxlan counters 
+        – Provides VXLAN encapsulation/decapsulation traffic counters and statistics for troubleshooting.
+7.	show mac address-table 
+        – Displays the switch’s MAC forwarding table, including VLAN, port, and entry type (dynamic/static).
+8.	show arp 
+      – Shows the Address Resolution Protocol table, mapping IP addresses to MAC addresses for locally connected hosts.
+
+----- EVPN -----
+1.	show bgp evpn summary 
+        – Displays EVPN BGP neighbor status, session state, and basic statistics (similar to show ip bgp summary for the underlay).
+2.	show bgp evpn route-type mac-ip 
+        – Shows EVPN Type-2 routes (MAC + optional IP bindings) in the control plane.
+3.	show bgp evpn route-type mac-ip <MAC> detail 
+        – Gives detailed info about a specific MAC/IP EVPN route, including next-hops and communities.
+4.	show bgp evpn route-type ip-prefix ipv4 
+        – Lists EVPN Type-5 routes (IP prefix routes) for IPv4.
+5.	show bgp evpn route-type ip-prefix <SUBNET> detail 
+        – Provides detailed attributes for a specific IP prefix EVPN route.
+6.	show bgp neighbors x.x.x.x evpn received-routes detail    
+        – Displays all EVPN routes learned from a specific BGP neighbor, with full attributes.
+7.	show bgp neighbors x.x.x.x evpn advertised-routes detail 
+        – Shows all EVPN routes this router advertised to a specific BGP neighbor, with attributes.
+8.	show vxlan config-sanity 
+        – Runs built-in checks for VXLAN/EVPN configuration consistency and highlights misconfigs.
+9.	show vxlan address-table 
+        – Displays the VXLAN MAC address table, mapping MACs to VNIs and VTEPs.
+10.	show vxlan vtep 
+        – Lists remote VXLAN Tunnel Endpoints (VTEPs) the switch has discovered via EVPN.
+11.	show vxlan vni 
+        – Shows configured VNIs and their associated VLANs/VRFs.
+12.	show arp remote 
+        – Displays ARP entries learned remotely via EVPN (not local ARP).
+13.	show bgp debug policy inbound neighbor x.x.x.x evpn ... 
+        – Debugs inbound route-map/policy application on EVPN routes from a specific neighbor.
+14.	show bgp evpn sanity detail 
+        – Runs EVPN control plane health checks (route types, RTs, ESIs, etc.) and shows detailed results.
+15.   show bgp evpn host-flap
+        - Displays MAC/IP endpoints that have moved between VTEPs frequently and been put on the naughty list. 
