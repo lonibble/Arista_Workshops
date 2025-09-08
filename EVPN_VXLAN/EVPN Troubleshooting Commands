@@ -1,0 +1,18 @@
+1. show bgp evpn summary
+2. show bgp evpn route-type mac-ip
+    1. For viewing EVPN Type-2 advertisements
+3. show bgp evpn route-type mac-ip <MAC> detail
+4. show bgp evpn route-type ip-prefix ipv4
+    1. For viewing EVPN Type-5 advertisements
+5. show bgp evpn route-type ip-prefix <SUBNET> detail
+6. (OVERLAY) show bgp evpn community GSHUT
+    1. Equivalent in IPv4 AF (UNDERLAY): show ip bgp neighbors x.x.x.x (underlay next-hop) received-routes detail 
+7. show vxlan config-sanity
+8. show vxlan address-table
+9. show vxlan vtep
+10. show vxlan vni
+
+Honorable mentions:
+1. show arp remote
+2. show bgp debug policy inbound neighbor x.x.x.x evpn ...
+3. show bgp evpn sanity detail
