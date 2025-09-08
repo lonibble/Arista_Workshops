@@ -26,3 +26,5 @@
       – Debugs inbound route-map/policy application on EVPN routes from a specific neighbor.
 14.	show bgp evpn sanity detail 
       – Runs EVPN control plane health checks (route types, RTs, ESIs, etc.) and shows detailed results.
+15.   show bgp evpn host-flap
+      - Displays MAC/IP endpoints that have moved between VTEPs frequently and been put on the naughty list. 
